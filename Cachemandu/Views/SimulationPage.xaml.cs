@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -26,25 +28,34 @@ namespace Cachemandu.Views
     /// </summary>
     public sealed partial class SimulationPage : Page
     {
-        Models.Cache cache;
-
         public SimulationPage()
         {
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                AppViewBackButtonVisibility.Visible;
 
-            StorageFile file = (StorageFile) e.Content;
+            StorageFile file = (StorageFile)e.Parameter;
+            StreamReader reader = null;
+            Stream stream = null;
 
-            LogParser parser = new LogParser(file.Path, false);
+            try
+            {
+                stream = await file.OpenStreamForReadAsync();
+                reader = new StreamReader(stream, new ASCIIEncoding());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
+            LogParser parser = new LogParser(reader, false);
             Logger logger = new Logger(500);
-            bool istrue = false;
 
-            if (parser.IsOpen())
+            if (reader != null && stream != null && stream.CanRead)
             {
                 for (int i = 0; !parser.CloseIfDone(); i++)
                 {
