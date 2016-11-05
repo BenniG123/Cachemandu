@@ -28,6 +28,8 @@ namespace Cachemandu.Views
     /// </summary>
     public sealed partial class SimulationPage : Page
     {
+        private Cache cache;
+
         public SimulationPage()
         {
             this.InitializeComponent();
@@ -38,13 +40,16 @@ namespace Cachemandu.Views
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                AppViewBackButtonVisibility.Visible;
 
-            StorageFile file = (StorageFile)e.Parameter;
+            Tuple<Cache, StorageFile> tuple = (Tuple<Cache, StorageFile>) e.Parameter;
+            cache = tuple.Item1;
+            StorageFile logFile = tuple.Item2;
+
             StreamReader reader = null;
             Stream stream = null;
 
             try
             {
-                stream = await file.OpenStreamForReadAsync();
+                stream = await logFile.OpenStreamForReadAsync();
                 reader = new StreamReader(stream, new ASCIIEncoding());
             }
             catch (Exception ex)

@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Cachemandu.Models;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -56,7 +57,14 @@ namespace Cachemandu.Views
 
         private void RunSimulation(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Views.SimulationPage), logFile);
+            int wordSize = (int)lstWordSize.SelectedValue;
+            int blockSize = (int)lstBlockSize.SelectedValue;
+            int numBlocks = (int)lstNumBlocks.SelectedValue;
+            int mappingSize = (int)lstMapSize.SelectedValue;
+
+            Cache c = new Cache(wordSize, blockSize, numBlocks, null, null, false);
+            Tuple<Cache, StorageFile> t = Tuple.Create<Cache, StorageFile>(c, logFile);
+            Frame.Navigate(typeof(Views.SimulationPage), t);
         }
     }
 }
