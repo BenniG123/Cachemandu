@@ -56,7 +56,7 @@ namespace Cachemandu.Views
 
         private void RunSimulation(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Views.SimulationPage));
+            Frame.Navigate(typeof(Views.SimulationPage), logFile);
         }
     }
 }

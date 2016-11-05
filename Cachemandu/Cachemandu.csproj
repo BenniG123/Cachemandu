@@ -100,7 +100,10 @@
     <Compile Include="Models\ICoherenceProtocol.cs" />
     <Compile Include="Models\IMappingProtocol.cs" />
     <Compile Include="Models\IReplacementPolicy.cs" />
+    <Compile Include="Models\Logger.cs" />
+    <Compile Include="Models\LogParser.cs" />
     <Compile Include="Models\MemoryAccessHandler.cs" />
+    <Compile Include="Models\Util.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
