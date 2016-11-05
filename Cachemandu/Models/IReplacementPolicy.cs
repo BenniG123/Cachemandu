@@ -8,5 +8,6 @@ namespace Cachemandu.Models
 {
     interface IReplacementPolicy
     {
+        void replace(HashSet<List<CacheEntry>> entries, long index, long tag);
     }
 }

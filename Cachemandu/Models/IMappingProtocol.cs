@@ -8,5 +8,6 @@ namespace Cachemandu.Models
 {
     interface IMappingProtocol
     {
+        HashSet<List<CacheEntry>> setupEntries(int wordSize, int blockSize, int numBlocks);
     }
 }

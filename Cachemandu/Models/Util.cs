@@ -12,4 +12,11 @@ namespace Cachemandu.Models
         public InstType type;
         public long addr;
     }
+
+    public class CacheEntry
+    {
+        public byte flags;
+        public long tag;
+        public long data;
+    }
 }
