@@ -1,0 +1,1 @@
+sde -odebugtrace [log] -dt_syscall 0 -dt_instruction 0 -- [program]
