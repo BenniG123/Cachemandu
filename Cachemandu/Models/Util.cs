@@ -15,8 +15,15 @@ namespace Cachemandu.Models
 
     public class CacheEntry
     {
-        public byte flags;
+        public byte valid;
+        public int counter;
         public long tag;
-        public long data;
+
+        public CacheEntry()
+        {
+            valid = 0;
+            counter = 0;
+            tag = 0;
+        }
     }
 }

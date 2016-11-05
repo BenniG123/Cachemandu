@@ -11,51 +11,72 @@ namespace Cachemandu.Models
         private int wordSize;
         private int blockSize;
         private int numBlocks;
-        private IMappingProtocol mappingProtocol;
+        private int numSets;
         private IReplacementPolicy replacementPolicy;
         HashSet<List<CacheEntry>> entries;
         private byte offsetSize;
         private byte indexSize;
         private byte tagSize;
+        private int count;
 
-        public Cache(int wordSize, int blockSize, int numBlocks, IMappingProtocol mappingProtocol, IReplacementPolicy replacementPolicy, bool bit64)
+        public Cache(int wordSize, int blockSize, int numBlocks, int numSets, IReplacementPolicy replacementPolicy, bool bit64)
         {
             this.wordSize = wordSize;
             this.blockSize = blockSize;
             this.numBlocks = numBlocks;
-            this.mappingProtocol = mappingProtocol;
+            this.numSets = numSets;
             this.replacementPolicy = replacementPolicy;
 
-            entries = mappingProtocol.setupEntries(wordSize, blockSize, numBlocks);
+            entries = mapEntries(wordSize, blockSize, numBlocks, numSets);
             offsetSize = (byte)Math.Round(Math.Log(wordSize, 2));
             indexSize = (byte)Math.Round(Math.Log(numBlocks, 2));
             tagSize = (byte)((bit64 ? 64 : 32) - (offsetSize + indexSize));
+            count = 0;
         }
 
         public bool check(long addr)
         {
             bool found = false;
-            long index = (addr >> offsetSize) & (0x01 << indexSize);
+            int index = (int)((addr >> offsetSize) & (0x01 << indexSize));
             long tag = (addr >> (offsetSize + indexSize)) & (0x01 << tagSize);
 
             // Search cache
             foreach (List<CacheEntry> set in entries) {
-                foreach (CacheEntry entry in set)
+                if (set[index].tag == tag && set[index].valid == 1)
                 {
-                    if (entry.tag == tag)
-                    {
-                        found = true;
-                    }
+                    found = true;
+                    break;
                 }
             }
 
             // If not in cache, replace
             if (!found) {
-                replacementPolicy.replace(entries, index, tag);
+                replacementPolicy.replace(entries, index, tag, count);
                 return false;
             }
 
+            // Increment program counter
+            count++;
+
             return true;
+        }
+
+        private HashSet<List<CacheEntry>> mapEntries(int wordSize, int blockSize, int numBlocks, int numSets)
+        {
+            HashSet<List<CacheEntry>> ret;
+
+            ret = new HashSet<List<CacheEntry>>();
+            for (int i = 0; i < numSets; i++)
+            {
+                List<CacheEntry> list = new List<CacheEntry>();
+                for (int j = 0; j < numBlocks; j++)
+                {
+                    list.Add(new CacheEntry());
+                }
+                ret.Add(list);
+            }
+
+            return ret;
         }
     }
 }
