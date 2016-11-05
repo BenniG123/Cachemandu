@@ -96,7 +96,6 @@ namespace Cachemandu
                 e.Handled = true;
                 rootFrame.GoBack();
             }
-
         }
 
         /// <summary>
