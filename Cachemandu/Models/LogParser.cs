@@ -25,7 +25,18 @@ namespace Cachemandu.Models
 		    return (reader != null && stream.CanRead);
 	    }
 
-	    public MemInst GetNextInst() {
+        public bool CloseIfDone()
+        {
+            if (reader.EndOfStream)
+            {
+                reader.Dispose();
+                stream.Dispose();
+                return true;
+            }
+            return false;
+        }
+
+        public MemInst GetNextInst() {
 		    String line = reader.ReadLine();
 		    MemInst ret = new MemInst();
 

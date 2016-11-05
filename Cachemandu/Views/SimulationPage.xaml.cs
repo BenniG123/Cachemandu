@@ -35,6 +35,9 @@ namespace Cachemandu.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+               AppViewBackButtonVisibility.Visible;
+
             StorageFile file = (StorageFile) e.Content;
 
             LogParser parser = new LogParser(file.Path, false);
@@ -59,11 +62,6 @@ namespace Cachemandu.Views
                     Debug.WriteLine(item);
                 }
             }
-
-            Debug.WriteLine("!");
-
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-               AppViewBackButtonVisibility.Visible;
         }
     }
 }
