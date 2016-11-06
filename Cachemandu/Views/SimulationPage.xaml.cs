@@ -65,10 +65,9 @@ namespace Cachemandu.Views
                 for (int i = 0; !parser.CloseIfDone(); i++)
                 {
                     MemInst inst = parser.GetNextInst();
-                    logger.add(i < 500);
-                    if (i == 1000)
+                    if (inst != null && inst.type == InstType.LOAD)
                     {
-                        i = 0;
+                        logger.add(cache.check(inst.addr));
                     }
                 }
 

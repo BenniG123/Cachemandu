@@ -37,8 +37,8 @@ namespace Cachemandu.Models
         public bool check(long addr)
         {
             bool found = false;
-            int index = (int)((addr >> offsetSize) & (0x01 << indexSize));
-            long tag = (addr >> (offsetSize + indexSize)) & (0x01 << tagSize);
+            int index = (int)((addr >> offsetSize) & ((0x01 << indexSize) - 1));
+            long tag = (addr >> (offsetSize + indexSize)) & ((0x01 << tagSize) - 1);
 
             // Search cache
             foreach (List<CacheEntry> set in entries) {
