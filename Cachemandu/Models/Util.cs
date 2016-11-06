@@ -15,13 +15,13 @@ namespace Cachemandu.Models
 
     public class CacheEntry
     {
-        public byte valid;
+        public bool valid;
         public int counter;
         public long tag;
 
         public CacheEntry()
         {
-            valid = 0;
+            valid = false;
             counter = 0;
             tag = 0;
         }

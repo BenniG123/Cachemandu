@@ -56,16 +56,15 @@ namespace Cachemandu.Views
         }
 
         private void RunSimulation(object sender, RoutedEventArgs e)
-        {
-            /* int wordSize = int.Parse(((TextBlock) ((ComboBoxItem) lstWordSize.SelectedItem).Content).Text);
-            int blockSize = (int)lstBlockSize.SelectedValue;
-            int numBlocks = (int)lstNumBlocks.SelectedValue;
-            int mappingSize = (int)lstMapSize.SelectedValue;
-            */
+        { 
+            int wordSize = int.Parse(((ComboBoxItem)lstWordSize.SelectedValue).Content.ToString());
+            int blockSize = int.Parse(((ComboBoxItem)lstBlockSize.SelectedValue).Content.ToString());
+            int numBlocks = int.Parse(((ComboBoxItem)lstNumBlocks.SelectedValue).Content.ToString());
+            int mappingSize = int.Parse(((ComboBoxItem)lstMapSize.SelectedValue).Content.ToString());
 
             // TODO - Parse other options
 
-            Cache c = new Cache(32, 256, 32, 1, new RandomReplacementPolicy(), false);
+            Cache c = new Cache(wordSize, blockSize, numBlocks, mappingSize, new RandomReplacementPolicy(), false);
             Tuple<Cache, StorageFile> t = Tuple.Create<Cache, StorageFile>(c, logFile);
             Frame.Navigate(typeof(Views.SimulationPage), t);
         }

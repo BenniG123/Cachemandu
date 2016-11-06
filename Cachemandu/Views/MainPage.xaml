@@ -8,245 +8,133 @@
     mc:Ignorable="d">
 
     <ScrollViewer>
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Cachemandu" Style="{ThemeResource HeaderTextBlockStyle}" HorizontalAlignment="Center"/>
-        
-        <StackPanel Name="panelBrowseLogFile" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="btnBrowseLogFile" Click="PickLogFile">
-                <TextBlock Text="Browse"/>
+        <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <TextBlock Text="Cachemandu" Style="{ThemeResource HeaderTextBlockStyle}" HorizontalAlignment="Center"/>
+
+            <StackPanel Name="panelBrowseLogFile" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Name="btnBrowseLogFile" Click="PickLogFile">
+                    <TextBlock Text="Browse"/>
+                </Button>
+
+                <TextBlock Name="txtLogFileName" Margin="20" Text="No Log File Selected" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <Grid HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="20" Text="Number of Processors" />
+                <ComboBox Grid.Column="1" Grid.Row="0" Margin="20" Name="lstNumProcessors">
+                    <ComboBoxItem IsSelected="True">1</ComboBoxItem>
+                    <ComboBoxItem>2</ComboBoxItem>
+                    <ComboBoxItem>4</ComboBoxItem>
+                    <ComboBoxItem>8</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="1"  Margin="20"  Text="Coherence Protocol" />
+                <ComboBox Grid.Column="1" Grid.Row="1" Margin="20"  Name="lstCoherenceProtocol">
+                    <ComboBoxItem IsSelected="True">MSI</ComboBoxItem>
+                    <ComboBoxItem>MESI</ComboBoxItem>
+                    <ComboBoxItem>Dragon</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" Margin="20"  Text="Mapping Size" />
+                <ComboBox Grid.Column="1" Grid.Row="2" Margin="20"  Name="lstMapSize">
+                    <ComboBoxItem IsSelected="True">1</ComboBoxItem>
+                    <ComboBoxItem>2</ComboBoxItem>
+                    <ComboBoxItem>4</ComboBoxItem>
+                    <ComboBoxItem>8</ComboBoxItem>
+                    <ComboBoxItem>16</ComboBoxItem>
+                    <ComboBoxItem>32</ComboBoxItem>
+                    <ComboBoxItem>64</ComboBoxItem>
+                    <ComboBoxItem>128</ComboBoxItem>
+                    <ComboBoxItem>256</ComboBoxItem>
+                    <ComboBoxItem>512</ComboBoxItem>
+                    <ComboBoxItem>1024</ComboBoxItem>
+                    <ComboBoxItem>2048</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="3" Margin="20"  Text="Bus Arbitration" />
+                <ComboBox Grid.Column="1" Grid.Row="3" Margin="20"  Name="lstBusArbitration">
+                    <ComboBoxItem IsSelected="True">Random</ComboBoxItem>
+                    <ComboBoxItem>LFU</ComboBoxItem>
+                    <ComboBoxItem>FIFO</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="4" Margin="20"  Text="Replacement Policy" />
+                <ComboBox Grid.Column="1" Grid.Row="4" Margin="20"  Name="lstReplacementPolicy">
+                    <ComboBoxItem IsSelected="True">Random</ComboBoxItem>
+                    <ComboBoxItem>LFU</ComboBoxItem>
+                    <ComboBoxItem>FIFO</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="5"  Margin="20" Text="Word Size" />
+                <ComboBox Grid.Column="1" Grid.Row="5" Margin="20"  Name="lstWordSize">
+                    <ComboBoxItem>8</ComboBoxItem>
+                    <ComboBoxItem>16</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">32</ComboBoxItem>
+                    <ComboBoxItem>64</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="6" Margin="20" Text="Block Size" />
+                <ComboBox Grid.Column="1" Grid.Row="6" Margin="20" Name="lstBlockSize">
+                    <ComboBoxItem>1</ComboBoxItem>
+                    <ComboBoxItem>2</ComboBoxItem>
+                    <ComboBoxItem>4</ComboBoxItem>
+                    <ComboBoxItem>8</ComboBoxItem>
+                    <ComboBoxItem>16</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">32</ComboBoxItem>
+                    <ComboBoxItem>64</ComboBoxItem>
+                    <ComboBoxItem>128</ComboBoxItem>
+                    <ComboBoxItem>256</ComboBoxItem>
+                    <ComboBoxItem>512</ComboBoxItem>
+                    <ComboBoxItem>1024</ComboBoxItem>
+                    <ComboBoxItem>2048</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="7" Margin="20" Text="Number of Blocks" />
+                <ComboBox Grid.Column="1" Grid.Row="7" Margin="20" Name="lstNumBlocks">
+                    <ComboBoxItem>1</ComboBoxItem>
+                    <ComboBoxItem>2</ComboBoxItem>
+                    <ComboBoxItem>4</ComboBoxItem>
+                    <ComboBoxItem>8</ComboBoxItem>
+                    <ComboBoxItem>16</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">32</ComboBoxItem>
+                    <ComboBoxItem>64</ComboBoxItem>
+                    <ComboBoxItem>128</ComboBoxItem>
+                    <ComboBoxItem>256</ComboBoxItem>
+                    <ComboBoxItem>512</ComboBoxItem>
+                    <ComboBoxItem>1024</ComboBoxItem>
+                    <ComboBoxItem>2048</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="8" Margin="20" Text="Number of Cache Levels" />
+                <ComboBox Grid.Column="1" Grid.Row="8" Margin="20" Name="lstNumCacheLevels">
+                    <ComboBoxItem IsSelected="True">1</ComboBoxItem>
+                    <ComboBoxItem>2</ComboBoxItem>
+                    <ComboBoxItem>3</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+
+            <Button Name="btnRun" Margin="20" HorizontalAlignment="Center" Click="RunSimulation">
+                <TextBlock Text="Run" />
             </Button>
 
-            <TextBlock Name="txtLogFileName" Margin="20" Text="No Log File Selected" VerticalAlignment="Center"/>
+            <TextBlock Text="Quinn Murphy and Ben Williams" Style="{ThemeResource CaptionTextBlockStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+
         </StackPanel>
-        
-        <Grid HorizontalAlignment="Center">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Column="0" Grid.Row="0" Margin="20" Text="Number of Processors" />
-            <ComboBox Grid.Column="1" Grid.Row="0" Margin="20" Name="lstNumProcessors">
-                <ComboBoxItem IsSelected="True">
-                    <TextBlock Text="1" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="2" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="4" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="8" />
-                </ComboBoxItem>
-            </ComboBox>
-
-            <TextBlock Grid.Column="0" Grid.Row="1"  Margin="20"  Text="Coherence Protocol" />
-            <ComboBox Grid.Column="1" Grid.Row="1" Margin="20"  Name="lstCoherenceProtocol">
-                <ComboBoxItem IsSelected="True">
-                    <TextBlock Text="MSI" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="MESI" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="Dragon" />
-                </ComboBoxItem>
-            </ComboBox>
-
-            <TextBlock Grid.Column="0" Grid.Row="2" Margin="20"  Text="Mapping Size" />
-            <ComboBox Grid.Column="1" Grid.Row="2" Margin="20"  Name="lstMapSize">
-                <ComboBoxItem IsSelected="True">
-                    <TextBlock Text="1"/>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="2" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="4" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="8" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="16" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="32" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="64" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="128" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="256" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="512" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="1024" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="2048" />
-                </ComboBoxItem>
-            </ComboBox>
-
-            <TextBlock Grid.Column="0" Grid.Row="3" Margin="20"  Text="Bus Arbitration" />
-            <ComboBox Grid.Column="1" Grid.Row="3" Margin="20"  Name="lstBusArbitration">
-                <ComboBoxItem IsSelected="True">
-                    <TextBlock Text="Random"/>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="LRU" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="LFU" />
-                </ComboBoxItem>
-            </ComboBox>
-
-            <TextBlock Grid.Column="0" Grid.Row="4" Margin="20"  Text="Replacement Policy" />
-            <ComboBox Grid.Column="1" Grid.Row="4" Margin="20"  Name="lstReplacementPolicy">
-                <ComboBoxItem IsSelected="True">
-                    <TextBlock Text="Random"/>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="LFU" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="LRU" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="FIFO" />
-                </ComboBoxItem>
-            </ComboBox>
-
-            <TextBlock Grid.Column="0" Grid.Row="5"  Margin="20" Text="Word Size" />
-            <ComboBox Grid.Column="1" Grid.Row="5" Margin="20"  Name="lstWordSize">
-                <ComboBoxItem>
-                    <TextBlock Text="8" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="16" />
-                </ComboBoxItem>
-                <ComboBoxItem IsSelected="True">
-                    <TextBlock Text="32" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="64" />
-                </ComboBoxItem>
-            </ComboBox>
-
-            <TextBlock Grid.Column="0" Grid.Row="6" Margin="20" Text="Block Size" />
-            <ComboBox Grid.Column="1" Grid.Row="6" Margin="20" Name="lstBlockSize">
-                    <ComboBoxItem>
-                        <TextBlock Text="1"/>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="2" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="4" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="8" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="16" />
-                    </ComboBoxItem>
-                    <ComboBoxItem IsSelected="True">
-                        <TextBlock Text="32" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="64" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="128" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="256" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="512" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="1024" />
-                    </ComboBoxItem>
-                </ComboBox>
-
-            <TextBlock Grid.Column="0" Grid.Row="7" Margin="20" Text="Number of Blocks" />
-            <ComboBox Grid.Column="1" Grid.Row="7" Margin="20" Name="lstNumBlocks">
-                    <ComboBoxItem>
-                        <TextBlock Text="1"/>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="2" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="4" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="8" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="16" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="32" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="64" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="128" />
-                    </ComboBoxItem>
-                    <ComboBoxItem IsSelected="True">
-                        <TextBlock Text="256" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="512" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="1024" />
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <TextBlock Text="2048" />
-                    </ComboBoxItem>
-                </ComboBox>
-
-            <TextBlock Grid.Column="0" Grid.Row="8" Margin="20" Text="Number of Cache Levels" />
-            <ComboBox Grid.Column="1" Grid.Row="8" Margin="20" Name="lstNumCacheLevels">
-                <ComboBoxItem IsSelected="True">
-                    <TextBlock Text="1" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="2" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="3" />
-                </ComboBoxItem>
-            </ComboBox>
-        </Grid>
-        
-        <Button Name="btnRun" Margin="20" HorizontalAlignment="Center" Click="RunSimulation">
-            <TextBlock Text="Run" />
-        </Button>
-
-        <TextBlock Text="Quinn Murphy and Ben Williams" Style="{ThemeResource CaptionTextBlockStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-
-    </StackPanel>
     </ScrollViewer>
 </Page>

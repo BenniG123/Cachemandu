@@ -42,7 +42,7 @@ namespace Cachemandu.Models
 
             // Search cache
             foreach (List<CacheEntry> set in entries) {
-                if (set[index].tag == tag && set[index].valid == 1)
+                if (set[index].tag == tag && set[index].valid)
                 {
                     found = true;
                     break;

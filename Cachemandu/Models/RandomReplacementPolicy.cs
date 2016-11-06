@@ -12,7 +12,7 @@ namespace Cachemandu.Models
         {
             CacheEntry entry = entries.ElementAt((new Random()).Next(entries.Count))[index];
             entry.tag = tag;
-            entry.valid = 1;
+            entry.valid = true;
         }
     }
 }
