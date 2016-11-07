@@ -5,9 +5,23 @@
     xmlns:local="using:Cachemandu.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    xmlns:Series="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ProgressRing Name="progressSimulation" IsActive="True" Height="150" Width="150"/>
+        
+        <charting:Chart
+                x:Name="chartHitRate"
+                Title="Hit Rate"
+                Margin="70,0">
+            <charting:LineSeries
+                    Title="Hit Rate"
+                    DependentValuePath="Rate"
+                    IndependentValuePath="PC"
+                    IsSelectionEnabled="True" />
+        </charting:Chart>
+
     </Grid>
 </Page>

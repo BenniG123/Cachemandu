@@ -27,10 +27,10 @@ namespace Cachemandu.Views
     public sealed partial class MainPage : Page
     {
         StorageFile logFile;
+        Cache c;
 
         public MainPage()
         {
-            logFile = null;
             this.InitializeComponent();
         }
 
@@ -38,6 +38,15 @@ namespace Cachemandu.Views
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                AppViewBackButtonVisibility.Collapsed;
+
+            if (logFile == null)
+            {
+                btnRun.IsEnabled = false;
+            }
+            else
+            {
+                btnRun.IsEnabled = true;
+            }
         }
 
         private async void PickLogFile(object sender, RoutedEventArgs e)
@@ -52,6 +61,7 @@ namespace Cachemandu.Views
             {
                 // Application now has read/write access to the picked file
                 txtLogFileName.Text = logFile.Name;
+                btnRun.IsEnabled = true;
             }
         }
 
@@ -64,9 +74,9 @@ namespace Cachemandu.Views
 
             // TODO - Parse other options
 
-            Cache c = new Cache(wordSize, blockSize, numBlocks, mappingSize, new RandomReplacementPolicy(), false);
+            c = new Cache(wordSize, blockSize, numBlocks, mappingSize, new RandomReplacementPolicy(), false);
             Tuple<Cache, StorageFile> t = Tuple.Create<Cache, StorageFile>(c, logFile);
-            Frame.Navigate(typeof(Views.SimulationPage), t);
+            Frame.Navigate(typeof(SimulationPage), t);
         }
     }
 }
