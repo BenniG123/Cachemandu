@@ -79,6 +79,7 @@
                 <ComboBox Grid.Column="1" Grid.Row="4" Margin="20"  Name="lstReplacementPolicy">
                     <ComboBoxItem IsSelected="True">Random</ComboBoxItem>
                     <ComboBoxItem>LFU</ComboBoxItem>
+                    <ComboBoxItem>LRU</ComboBoxItem>
                     <ComboBoxItem>FIFO</ComboBoxItem>
                 </ComboBox>
 

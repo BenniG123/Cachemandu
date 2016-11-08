@@ -75,8 +75,28 @@ namespace Cachemandu.Views
             int mappingSize = int.Parse(((ComboBoxItem)lstMapSize.SelectedValue).Content.ToString());
 
             // TODO - Parse other options
+            IReplacementPolicy replacementPolicy;
+            String replacementString = ((ComboBoxItem)lstReplacementPolicy.SelectedValue).Content.ToString();
+            switch (replacementString)
+            {
+                case "Random":
+                    replacementPolicy = new RandomReplacementPolicy();
+                    break;
+                case "LFU":
+                    replacementPolicy = new LFUReplacementPolicy();
+                    break;
+                case "LRU":
+                    replacementPolicy = new LRUReplacementPolicy();
+                    break;
+                case "FIFO":
+                    replacementPolicy = new FIFOReplacementPolicy();
+                    break;
+                default:
+                    replacementPolicy = new RandomReplacementPolicy();
+                    break;
+            }
 
-            c = new Cache(wordSize, blockSize, numBlocks, mappingSize, new RandomReplacementPolicy(), false);
+            c = new Cache(wordSize, blockSize, numBlocks, mappingSize, replacementPolicy, false);
             Tuple<Cache, StorageFile> t = Tuple.Create<Cache, StorageFile>(c, logFile);
             Frame.Navigate(typeof(SimulationPage), t);
         }
