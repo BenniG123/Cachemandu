@@ -16,13 +16,17 @@ namespace Cachemandu.Models
     public class CacheEntry
     {
         public bool valid;
-        public int counter;
+        public int mostRecentUse;
+        public int frequency;
+        public int fifoOrder;
         public long tag;
 
         public CacheEntry()
         {
             valid = false;
-            counter = 0;
+            mostRecentUse = 0;
+            frequency = 0;
+            fifoOrder = 0;
             tag = 0;
         }
     }

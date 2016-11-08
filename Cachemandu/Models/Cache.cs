@@ -44,6 +44,8 @@ namespace Cachemandu.Models
             foreach (List<CacheEntry> set in entries) {
                 if (set[index].tag == tag && set[index].valid)
                 {
+                    set[index].mostRecentUse = count;
+                    set[index].frequency++;
                     found = true;
                     break;
                 }
