@@ -12,7 +12,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using WinRTXamlToolkit.Controls.DataVisualization.Charting;
+using Syncfusion.SfChart.UWP;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -31,13 +31,13 @@ namespace Cachemandu.Views
     public sealed partial class SimulationPage : Page
     {
         private Cache cache;
-        private LineSeries ls;
-        private ObservableCollection<HitRateItem> plotList;
+        public ObservableCollection<HitRateItem> plotList { get; set; }
 
         public SimulationPage()
         {
             this.InitializeComponent();
             plotList = new ObservableCollection<HitRateItem>();
+            DataContext = this;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -67,7 +67,8 @@ namespace Cachemandu.Views
             }
 
             LogParser parser = new LogParser(reader, false);
-            Logger logger = new Logger(500);
+            int numEntries = 2000;
+            Logger logger = new Logger(numEntries);
 
             if (reader != null && stream != null && stream.CanRead)
             {
@@ -84,12 +85,8 @@ namespace Cachemandu.Views
                 stream.Dispose();
 
                 List<float> hist = logger.getHistory();
-                await ThreadPool.RunAsync((s) =>
-                {
-                    plotList.Clear();
-                });
 
-                int pc = 500;
+                int pc = numEntries;
 
                 foreach (var item in hist)
                 {
@@ -98,13 +95,13 @@ namespace Cachemandu.Views
                     dataPoint.PC = pc;
                     plotList.Add(dataPoint);
 
-                    pc += 500;
+                    pc += numEntries;
                 }
 
                 progressSimulation.IsActive = false;
+                chartHitRate.PrimaryAxis.Header = "Program Counter";
+                chartHitRate.SecondaryAxis.Header = "Hit Rate";
                 chartHitRate.Visibility = Visibility.Visible;
-                ls = ((LineSeries) chartHitRate.Series[0]);
-                ls.ItemsSource = plotList;
             }
         }
 
@@ -114,11 +111,11 @@ namespace Cachemandu.Views
             // already been handled .
             if (Frame.CanGoBack && e.Handled == false)
             {
-                // plotList.Clear();
-                // ls.ItemsSource = plotList;
+                plotList.Clear();
                 SystemNavigationManager.GetForCurrentView().BackRequested -= App_BackRequested;
                 e.Handled = true;
                 Frame.GoBack();
+                GC.Collect();
             }
         }
     }

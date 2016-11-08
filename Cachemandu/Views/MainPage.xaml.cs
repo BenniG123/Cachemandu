@@ -47,6 +47,8 @@ namespace Cachemandu.Views
             {
                 btnRun.IsEnabled = true;
             }
+
+            GC.Collect();
         }
 
         private async void PickLogFile(object sender, RoutedEventArgs e)
