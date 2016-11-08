@@ -20,7 +20,7 @@ namespace Cachemandu.Models
                     max = Int32.MaxValue;
                     maxEntry = list[index];
                 }
-                else if (list[index].fifoOrder > max)
+                else if (list[index].fifoOrder >= max)
                 {
                     max = list[index].fifoOrder;
                     maxEntry = list[index];

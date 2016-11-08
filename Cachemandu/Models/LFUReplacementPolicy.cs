@@ -20,7 +20,7 @@ namespace Cachemandu.Models
                     minEntry = list[index];
                     break;
                 }
-                else if (list[index].frequency < min)
+                else if (list[index].frequency <= min)
                 {
                     min = list[index].frequency;
                     minEntry = list[index];
