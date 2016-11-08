@@ -54,13 +54,13 @@ namespace Cachemandu.Models
             // If not in cache, replace
             if (!found) {
                 replacementPolicy.replace(entries, index, tag, count);
-                return false;
+                found = false;
             }
 
             // Increment program counter
             count++;
 
-            return true;
+            return found;
         }
 
         private HashSet<List<CacheEntry>> mapEntries(int wordSize, int blockSize, int numBlocks, int numSets)
