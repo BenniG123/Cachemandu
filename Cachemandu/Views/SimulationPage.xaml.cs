@@ -32,6 +32,7 @@ namespace Cachemandu.Views
     {
         private Cache cache;
         public ObservableCollection<HitRateItem> plotList { get; set; }
+        private float averageHitRate;
 
         public SimulationPage()
         {
@@ -47,7 +48,7 @@ namespace Cachemandu.Views
                AppViewBackButtonVisibility.Visible;
 
             progressSimulation.IsActive = true;
-            chartHitRate.Visibility = Visibility.Collapsed;
+            stackReport.Visibility = Visibility.Collapsed;
 
             Tuple<Cache, StorageFile> tuple = (Tuple<Cache, StorageFile>) e.Parameter;
             cache = tuple.Item1;
@@ -87,6 +88,7 @@ namespace Cachemandu.Views
                 List<float> hist = logger.getHistory();
 
                 int pc = numEntries;
+                averageHitRate = 0f;
 
                 foreach (var item in hist)
                 {
@@ -94,14 +96,19 @@ namespace Cachemandu.Views
                     dataPoint.Rate = item;
                     dataPoint.PC = pc;
                     plotList.Add(dataPoint);
+                    averageHitRate += item;
 
                     pc += numEntries;
                 }
 
+                averageHitRate /= hist.Count;
+                txtAverageHitRate.Text = averageHitRate.ToString();
+                txtLogFileName.Text = logFile.Name;
+
                 progressSimulation.IsActive = false;
                 chartHitRate.PrimaryAxis.Header = "Program Counter";
                 chartHitRate.SecondaryAxis.Header = "Hit Rate";
-                chartHitRate.Visibility = Visibility.Visible;
+                stackReport.Visibility = Visibility.Visible;
             }
         }
 
