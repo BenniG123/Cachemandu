@@ -33,6 +33,8 @@ namespace Cachemandu.Views
         private Cache cache;
         public ObservableCollection<HitRateItem> plotList { get; set; }
         private float averageHitRate;
+        private ulong fileSize;
+        private ulong fileSizeRead;
 
         public SimulationPage()
         {
@@ -60,6 +62,8 @@ namespace Cachemandu.Views
 
             try
             {
+                fileSize = (await logFile.GetBasicPropertiesAsync()).Size;
+                fileSizeRead = 0;
                 stream = await logFile.OpenStreamForReadAsync();
                 reader = new StreamReader(stream, new ASCIIEncoding());
             }
@@ -81,26 +85,31 @@ namespace Cachemandu.Views
                 for (int i = 0; !parser.CloseIfDone(); i++)
                 {
                     MemInst inst = parser.GetNextInst();
-                    if (inst != null && inst.type == InstType.LOAD)
+                    if (inst != null)
                     {
-                        int where = cache.check(inst.addr, 1);
-
-                        // If there wasn't a hit in any layer, log all the misses
-                        if (where == 0)
+                        fileSizeRead += (ulong)inst.lineSize;
+                        float percentage = fileSizeRead * 1.0f / fileSize;
+                        if (inst.type == InstType.LOAD)
                         {
-                            for (int j = 0; j < numLayers; j++)
+                            int where = cache.check(inst.addr, 1);
+
+                            // If there wasn't a hit in any layer, log all the misses
+                            if (where == 0)
                             {
-                                logger[j].add(false);
+                                for (int j = 0; j < numLayers; j++)
+                                {
+                                    logger[j].add(false);
+                                }
+                            }
+                            // Otherwise, mark hits and misses accordingly
+                            else
+                            {
+                                for (int j = 0; j < where; j++)
+                                {
+                                    logger[j].add(where - 1 == j);
+                                }
                             }
                         }
-                        // Otherwise, mark hits and misses accordingly
-                        else
-                        {
-                            for (int j = 0; j < where; j++)
-                            {
-                                logger[j].add(where - 1 == j);
-                            }
-                        } 
                     }
                 }
 
