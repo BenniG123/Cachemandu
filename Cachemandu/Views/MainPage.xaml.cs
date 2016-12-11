@@ -121,5 +121,29 @@ namespace Cachemandu.Views
                 }
             }
         }
+
+        private void lstNumCacheLevels_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (gridL1 == null || gridL2 == null || gridL3 == null)
+                return;
+
+            int numCacheLevels = int.Parse(((ComboBoxItem) lstNumCacheLevels.SelectedValue).Content.ToString());
+            if (numCacheLevels == 1)
+            {
+                gridL2.Visibility = Visibility.Collapsed;
+                gridL3.Visibility = Visibility.Collapsed;
+
+            }
+            else if (numCacheLevels == 2)
+            {
+                gridL2.Visibility = Visibility.Visible;
+                gridL3.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                gridL2.Visibility = Visibility.Visible;
+                gridL3.Visibility = Visibility.Visible;
+            }
+        }
     }
 }
