@@ -98,10 +98,11 @@ namespace Cachemandu.Views
                     break;
             }
 
+
             l3 = new Cache(wordSize, blockSize, numBlocks, mappingSize, replacementPolicy, false, null);
             l2 = new Cache(wordSize, blockSize, numBlocks, mappingSize, replacementPolicy, false, l3);
             l1 = new Cache(wordSize, blockSize, numBlocks, mappingSize, replacementPolicy, false, l2);
-            Tuple<Cache, StorageFile> t = Tuple.Create<Cache, StorageFile>(l1, logFile);
+            Tuple<Cache, StorageFile, int> t = Tuple.Create<Cache, StorageFile, int>(l1, logFile, 3);
             Frame.Navigate(typeof(SimulationPage), t);
         }
 

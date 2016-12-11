@@ -50,9 +50,10 @@ namespace Cachemandu.Views
             progressSimulation.IsActive = true;
             stackReport.Visibility = Visibility.Collapsed;
 
-            Tuple<Cache, StorageFile> tuple = (Tuple<Cache, StorageFile>) e.Parameter;
+            Tuple<Cache, StorageFile, int> tuple = (Tuple<Cache, StorageFile, int>) e.Parameter;
             cache = tuple.Item1;
             StorageFile logFile = tuple.Item2;
+            int numLayers = tuple.Item3;
 
             StreamReader reader = null;
             Stream stream = null;
@@ -68,8 +69,12 @@ namespace Cachemandu.Views
             }
 
             LogParser parser = new LogParser(reader, false);
-            int numEntries = 2000;
-            Logger logger = new Logger(numEntries);
+            int numToAvg = 2000;
+            List<Logger> logger = new List<Logger>();
+            for (int i = 0; i < numLayers; i++)
+            {
+                logger.Add(new Logger(numToAvg));
+            }
 
             if (reader != null && stream != null && stream.CanRead)
             {
@@ -78,19 +83,40 @@ namespace Cachemandu.Views
                     MemInst inst = parser.GetNextInst();
                     if (inst != null && inst.type == InstType.LOAD)
                     {
-                        logger.add(cache.check(inst.addr));
+                        int where = cache.check(inst.addr, 1);
+
+                        // If there wasn't a hit in any layer, log all the misses
+                        if (where == 0)
+                        {
+                            for (int j = 0; j < numLayers; j++)
+                            {
+                                logger[j].add(false);
+                            }
+                        }
+                        // Otherwise, mark hits and misses accordingly
+                        else
+                        {
+                            for (int j = 0; j < where; j++)
+                            {
+                                logger[j].add(where - 1 == j);
+                            }
+                        } 
                     }
                 }
 
                 reader.Dispose();
                 stream.Dispose();
 
-                List<float> hist = logger.getHistory();
+                List<List<float>> hist = new List<List<float>>();
+                for (int i = 0; i < numLayers; i++)
+                {
+                    hist.Add(logger[i].getHistory());
+                }
 
-                int pc = numEntries;
+                int pc = numToAvg;
                 averageHitRate = 0f;
 
-                foreach (var item in hist)
+                foreach (var item in hist[0])
                 {
                     HitRateItem dataPoint = new HitRateItem();
                     dataPoint.Rate = item;
@@ -98,7 +124,7 @@ namespace Cachemandu.Views
                     plotList.Add(dataPoint);
                     averageHitRate += item;
 
-                    pc += numEntries;
+                    pc += numToAvg;
                 }
 
                 averageHitRate /= hist.Count;

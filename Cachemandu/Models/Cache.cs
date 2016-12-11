@@ -36,9 +36,10 @@ namespace Cachemandu.Models
             count = 0;
         }
 
-        public bool check(long addr)
+        public int check(long addr, int layer)
         {
             bool found = false;
+            int foundLayer = 0;
             int index = (int)((addr >> offsetSize) & ((0x01 << indexSize) - 1));
             long tag = (addr >> (offsetSize + indexSize)) & ((0x01 << tagSize) - 1);
 
@@ -50,6 +51,7 @@ namespace Cachemandu.Models
                     set[index].mostRecentUse = count;
                     set[index].frequency++;
                     found = true;
+                    foundLayer = layer;
                     break;
                 }
             }
@@ -60,7 +62,7 @@ namespace Cachemandu.Models
                 // Check lower levels
                 if (nextLayer != null)
                 {
-                    found = nextLayer.check(addr);
+                    foundLayer = nextLayer.check(addr, layer + 1);
                 }
 
                 // Replace
@@ -70,7 +72,7 @@ namespace Cachemandu.Models
             // Increment program counter
             count++;
 
-            return found;
+            return foundLayer;
         }
 
         public void replace(HashSet<List<CacheEntry>> entries, int index, long tag, int count)
