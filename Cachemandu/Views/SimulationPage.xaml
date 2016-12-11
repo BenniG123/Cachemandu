@@ -9,8 +9,10 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Image Name="imageIcon" Source="../Assets/Square150x150Logo.scale-200.png" Width="150" Margin="10"/>
         <ProgressRing Name="progressSimulation" IsActive="True" Height="150" Width="150"/>
         <TextBlock Name="txtPercentDone" Text="0%" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{ThemeResource HeaderTextBlockStyle}"/>
+        
 
         <StackPanel Name="stackReport">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">

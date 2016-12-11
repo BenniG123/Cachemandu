@@ -10,9 +10,9 @@
 
     <ScrollViewer>
         <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <TextBlock Text="Cachemandu" Style="{ThemeResource HeaderTextBlockStyle}" HorizontalAlignment="Center"/>
+            <TextBlock Text="Cachemandu" HorizontalAlignment="Center" Style="{ThemeResource HeaderTextBlockStyle}" />
 
-            <Button HorizontalAlignment="Center" Name="btnGenLogFile" Click="GenLogFile" Margin="10">
+                <Button HorizontalAlignment="Center" Name="btnGenLogFile" Click="GenLogFile" Margin="10">
                 <TextBlock Text="Generate Log File"/>
             </Button>
 

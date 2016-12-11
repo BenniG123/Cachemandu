@@ -59,6 +59,8 @@ namespace Cachemandu.Views
                AppViewBackButtonVisibility.Visible;
 
             progressSimulation.IsActive = true;
+            txtPercentDone.Visibility = Visibility.Visible;
+            imageIcon.Visibility = Visibility.Visible;
             stackReport.Visibility = Visibility.Collapsed;
             dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
 
@@ -209,6 +211,7 @@ namespace Cachemandu.Views
 
                 progressSimulation.IsActive = false;
                 txtPercentDone.Visibility = Visibility.Collapsed;
+                imageIcon.Visibility = Visibility.Collapsed;
                 chartHitRate.PrimaryAxis.Header = "Program Counter";
                 chartHitRate.SecondaryAxis.Header = "Hit Rate";
                 stackReport.Visibility = Visibility.Visible;
