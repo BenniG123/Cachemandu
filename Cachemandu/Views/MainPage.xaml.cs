@@ -30,6 +30,7 @@ namespace Cachemandu.Views
         Cache l1;
         Cache l2;
         Cache l3;
+        private int numCacheLevels;
 
         public MainPage()
         {
@@ -71,39 +72,66 @@ namespace Cachemandu.Views
 
         private void RunSimulation(object sender, RoutedEventArgs e)
         { 
-            int wordSize = int.Parse(((ComboBoxItem)lstWordSize.SelectedValue).Content.ToString());
-            int blockSize = int.Parse(((ComboBoxItem)lstBlockSize.SelectedValue).Content.ToString());
-            int numBlocks = int.Parse(((ComboBoxItem)lstNumBlocks.SelectedValue).Content.ToString());
-            int mappingSize = int.Parse(((ComboBoxItem)lstMapSize.SelectedValue).Content.ToString());
+            int wordSize1 = int.Parse(((ComboBoxItem)lstWordSize.SelectedValue).Content.ToString());
+            int blockSize1 = int.Parse(((ComboBoxItem)lstBlockSize.SelectedValue).Content.ToString());
+            int numBlocks1 = int.Parse(((ComboBoxItem)lstNumBlocks.SelectedValue).Content.ToString());
+            int mappingSize1 = int.Parse(((ComboBoxItem)lstMapSize.SelectedValue).Content.ToString());
 
-            // TODO - Parse other options
-            IReplacementPolicy replacementPolicy;
-            String replacementString = ((ComboBoxItem)lstReplacementPolicy.SelectedValue).Content.ToString();
-            switch (replacementString)
+            String replacementString1 = ((ComboBoxItem)lstReplacementPolicy.SelectedValue).Content.ToString();
+            IReplacementPolicy replacementPolicy1 = GetReplacementPolicyFromString(replacementString1);
+
+            if (numCacheLevels > 2)
             {
-                case "Random":
-                    replacementPolicy = new RandomReplacementPolicy();
-                    break;
-                case "LFU":
-                    replacementPolicy = new LFUReplacementPolicy();
-                    break;
-                case "LRU":
-                    replacementPolicy = new LRUReplacementPolicy();
-                    break;
-                case "FIFO":
-                    replacementPolicy = new FIFOReplacementPolicy();
-                    break;
-                default:
-                    replacementPolicy = new RandomReplacementPolicy();
-                    break;
+                String replacementString3 = ((ComboBoxItem)lstReplacementPolicy2.SelectedValue).Content.ToString();
+                IReplacementPolicy replacementPolicy3 = GetReplacementPolicyFromString(replacementString3);
+
+                int wordSize3 = int.Parse(((ComboBoxItem)lstWordSize3.SelectedValue).Content.ToString());
+                int blockSize3 = int.Parse(((ComboBoxItem)lstBlockSize3.SelectedValue).Content.ToString());
+                int numBlocks3 = int.Parse(((ComboBoxItem)lstNumBlocks3.SelectedValue).Content.ToString());
+                int mappingSize3 = int.Parse(((ComboBoxItem)lstMapSize3.SelectedValue).Content.ToString());
+                l3 = new Cache(wordSize3, blockSize3, numBlocks3, mappingSize3, replacementPolicy3, false, null);
+            }
+            else
+            {
+                l3 = null;
             }
 
+            if (numCacheLevels > 1)
+            {
+                String replacementString2 = ((ComboBoxItem)lstReplacementPolicy2.SelectedValue).Content.ToString();
+                IReplacementPolicy replacementPolicy2 = GetReplacementPolicyFromString(replacementString2);
 
-            l3 = new Cache(wordSize, blockSize, numBlocks, mappingSize, replacementPolicy, false, null);
-            l2 = new Cache(wordSize, blockSize, numBlocks, mappingSize, replacementPolicy, false, l3);
-            l1 = new Cache(wordSize, blockSize, numBlocks, mappingSize, replacementPolicy, false, l2);
-            Tuple<Cache, StorageFile, int> t = Tuple.Create<Cache, StorageFile, int>(l1, logFile, 3);
+                int wordSize2 = int.Parse(((ComboBoxItem)lstWordSize2.SelectedValue).Content.ToString());
+                int blockSize2 = int.Parse(((ComboBoxItem)lstBlockSize2.SelectedValue).Content.ToString());
+                int numBlocks2 = int.Parse(((ComboBoxItem)lstNumBlocks2.SelectedValue).Content.ToString());
+                int mappingSize2 = int.Parse(((ComboBoxItem)lstMapSize2.SelectedValue).Content.ToString());
+                l2 = new Cache(wordSize2, blockSize2, numBlocks2, mappingSize2, replacementPolicy2, false, l3);
+            }
+            else
+            {
+                l2 = null;
+            }
+
+            l1 = new Cache(wordSize1, blockSize1, numBlocks1, mappingSize1, replacementPolicy1, false, l2);
+            Tuple<Cache, StorageFile, int> t = Tuple.Create<Cache, StorageFile, int>(l1, logFile, numCacheLevels);
             Frame.Navigate(typeof(SimulationPage), t);
+        }
+
+        private IReplacementPolicy GetReplacementPolicyFromString(String s)
+        {
+            switch (s)
+            {
+                case "Random":
+                    return new RandomReplacementPolicy();
+                case "LFU":
+                    return new LFUReplacementPolicy();
+                case "LRU":
+                    return new LRUReplacementPolicy();
+                case "FIFO":
+                    return new FIFOReplacementPolicy();
+                default:
+                    return new RandomReplacementPolicy();
+            }
         }
 
         private async void GenLogFile(object sender, RoutedEventArgs e)
@@ -125,9 +153,12 @@ namespace Cachemandu.Views
         private void lstNumCacheLevels_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (gridL1 == null || gridL2 == null || gridL3 == null)
+            {
+                numCacheLevels = 1;
                 return;
+            }
 
-            int numCacheLevels = int.Parse(((ComboBoxItem) lstNumCacheLevels.SelectedValue).Content.ToString());
+            numCacheLevels = int.Parse(((ComboBoxItem) lstNumCacheLevels.SelectedValue).Content.ToString());
             if (numCacheLevels == 1)
             {
                 gridL2.Visibility = Visibility.Collapsed;
