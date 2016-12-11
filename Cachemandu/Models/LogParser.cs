@@ -32,6 +32,7 @@ namespace Cachemandu.Models
         {
             String line = reader.ReadLine();
             MemInst ret = new MemInst();
+            ret.lineSize = line.Length + 1;
 
             ret.type = InstType.NONE;
             while (!reader.EndOfStream)

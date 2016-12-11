@@ -11,6 +11,7 @@ namespace Cachemandu.Models
     {
         public InstType type;
         public long addr;
+        public int lineSize;
     }
 
     public class CacheEntry
