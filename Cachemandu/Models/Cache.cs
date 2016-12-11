@@ -18,14 +18,16 @@ namespace Cachemandu.Models
         private byte indexSize;
         private byte tagSize;
         private int count;
+        private Cache nextLayer;
 
-        public Cache(int wordSize, int blockSize, int numBlocks, int numSets, IReplacementPolicy replacementPolicy, bool bit64)
+        public Cache(int wordSize, int blockSize, int numBlocks, int numSets, IReplacementPolicy replacementPolicy, bool bit64, Cache nextLayer)
         {
             this.wordSize = wordSize;
             this.blockSize = blockSize;
             this.numBlocks = numBlocks;
             this.numSets = numSets;
             this.replacementPolicy = replacementPolicy;
+            this.nextLayer = nextLayer;
 
             entries = mapEntries(wordSize, blockSize, numBlocks, numSets);
             offsetSize = (byte)Math.Round(Math.Log(wordSize, 2));
@@ -41,7 +43,8 @@ namespace Cachemandu.Models
             long tag = (addr >> (offsetSize + indexSize)) & ((0x01 << tagSize) - 1);
 
             // Search cache
-            foreach (List<CacheEntry> set in entries) {
+            foreach (List<CacheEntry> set in entries)
+            {
                 if (set[index].tag == tag && set[index].valid)
                 {
                     set[index].mostRecentUse = count;
@@ -51,16 +54,35 @@ namespace Cachemandu.Models
                 }
             }
 
-            // If not in cache, replace
-            if (!found) {
-                replacementPolicy.replace(entries, index, tag, count);
-                found = false;
+            // If not in cache....
+            if (!found)
+            {
+                // Check lower levels
+                if (nextLayer != null)
+                {
+                    found = nextLayer.check(addr);
+                }
+
+                // Replace
+                replace(entries, index, tag, count);
             }
 
             // Increment program counter
             count++;
 
             return found;
+        }
+
+        public void replace(HashSet<List<CacheEntry>> entries, int index, long tag, int count)
+        {
+            // Replace in this cache
+            replacementPolicy.replace(entries, index, tag, count);
+
+            // Replace in lower cache (this technically should only be done when something is evicted, but its a simulator so this is easier)
+            if (nextLayer != null)
+            {
+                nextLayer.replace(entries, index, tag, count);
+            }
         }
 
         private HashSet<List<CacheEntry>> mapEntries(int wordSize, int blockSize, int numBlocks, int numSets)

@@ -27,7 +27,9 @@ namespace Cachemandu.Views
     public sealed partial class MainPage : Page
     {
         StorageFile logFile;
-        Cache c;
+        Cache l1;
+        Cache l2;
+        Cache l3;
 
         public MainPage()
         {
@@ -96,8 +98,10 @@ namespace Cachemandu.Views
                     break;
             }
 
-            c = new Cache(wordSize, blockSize, numBlocks, mappingSize, replacementPolicy, false);
-            Tuple<Cache, StorageFile> t = Tuple.Create<Cache, StorageFile>(c, logFile);
+            l3 = new Cache(wordSize, blockSize, numBlocks, mappingSize, replacementPolicy, false, null);
+            l2 = new Cache(wordSize, blockSize, numBlocks, mappingSize, replacementPolicy, false, l3);
+            l1 = new Cache(wordSize, blockSize, numBlocks, mappingSize, replacementPolicy, false, l2);
+            Tuple<Cache, StorageFile> t = Tuple.Create<Cache, StorageFile>(l1, logFile);
             Frame.Navigate(typeof(SimulationPage), t);
         }
     }
