@@ -12,6 +12,10 @@
         <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <TextBlock Text="Cachemandu" Style="{ThemeResource HeaderTextBlockStyle}" HorizontalAlignment="Center"/>
 
+            <Button HorizontalAlignment="Center" Name="btnGenLogFile" Click="GenLogFile" Margin="10">
+                <TextBlock Text="Generate Log File"/>
+            </Button>
+
             <StackPanel Name="panelBrowseLogFile" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Name="btnBrowseLogFile" Click="PickLogFile">
                     <TextBlock Text="Browse"/>

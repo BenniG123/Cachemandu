@@ -100,5 +100,11 @@ namespace Cachemandu.Views
             Tuple<Cache, StorageFile> t = Tuple.Create<Cache, StorageFile>(c, logFile);
             Frame.Navigate(typeof(SimulationPage), t);
         }
+
+        private async void GenLogFile(object sender, RoutedEventArgs e)
+        {
+            GenerateLogFileDialog genLogDialog = new GenerateLogFileDialog();
+            ContentDialogResult result = await genLogDialog.ShowAsync();
+        }
     }
 }
