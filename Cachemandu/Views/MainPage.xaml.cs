@@ -109,6 +109,16 @@ namespace Cachemandu.Views
         {
             GenerateLogFileDialog genLogDialog = new GenerateLogFileDialog();
             ContentDialogResult result = await genLogDialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                if (genLogDialog.logFile != null)
+                {
+                    logFile = genLogDialog.logFile;
+                    // Application now has read/write access to the picked file
+                    txtLogFileName.Text = logFile.Name;
+                    btnRun.IsEnabled = true;
+                }
+            }
         }
     }
 }

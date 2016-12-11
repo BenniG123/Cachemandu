@@ -14,6 +14,23 @@
 
     <StackPanel>
         <TextBlock Text="You need to have Intel SDE installed and added to your path to continue." />
-        <HyperlinkButton Name="urlButton" NavigateUri="https://software.intel.com/en-us/articles/pre-release-license-agreement-for-intel-software-development-emulator-accept-end-user-license-agreement-and-download">Download Intel SDE Here</HyperlinkButton>
+        <HyperlinkButton HorizontalAlignment="Center" Name="urlButton" NavigateUri="https://software.intel.com/en-us/articles/pre-release-license-agreement-for-intel-software-development-emulator-accept-end-user-license-agreement-and-download">Download Intel SDE Here</HyperlinkButton>
+        <StackPanel Name="panelBrowseExe" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="btnBrowseExe" Click="PickExe">
+                <TextBlock Text="Browse"/>
+            </Button>
+
+            <TextBlock Name="txtExeName" Margin="20" Text="No Executable Selected" VerticalAlignment="Center"/>
+        </StackPanel>
+        
+        <StackPanel Name="panelBrowseLogFile" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="btnBrowseLogFile" Click="PickLogFile">
+                <TextBlock Text="Select Log File"/>
+            </Button>
+
+            <TextBlock Name="txtLogFileName" Margin="20" Text="No Log File Selected" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <TextBlock Text="Open up a command prompt and right click to paste the proper command." />
     </StackPanel>
 </ContentDialog>
