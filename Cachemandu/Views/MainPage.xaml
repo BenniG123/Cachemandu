@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    NavigationCacheMode="Enabled" Height="786.667">
+    NavigationCacheMode="Enabled" Height="Auto" Width="Auto">
 
     <ScrollViewer>
         <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -57,7 +57,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="20"  Text="L1" HorizontalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="20" Grid.ColumnSpan="2" Text="L1" HorizontalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}"/>
 
                     <TextBlock Grid.Column="0" Grid.Row="1" Margin="20"  Text="Set Associativity" SelectionChanged="TextBlock_SelectionChanged" />
                     <ComboBox Grid.Column="1" Grid.Row="1" Margin="20"  Name="lstMapSize">
@@ -138,7 +138,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="20"  Text="L2" HorizontalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="20" Grid.ColumnSpan="2" Text="L2" HorizontalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}"/>
 
                     <TextBlock Grid.Column="0" Grid.Row="1" Margin="20"  Text="Associativity" />
                     <ComboBox Grid.Column="1" Grid.Row="1" Margin="20"  Name="lstMapSize2">
@@ -219,7 +219,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="20"  Text="L3" HorizontalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="20" Grid.ColumnSpan="2" Text="L3" HorizontalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}"/>
 
                     <TextBlock Grid.Column="0" Grid.Row="1" Margin="20"  Text="Associativity" />
                     <ComboBox Grid.Column="1" Grid.Row="1" Margin="20"  Name="lstMapSize3">

@@ -12,58 +12,59 @@
         <Image Name="imageIcon" Source="../Assets/Square150x150Logo.scale-200.png" Width="150" Margin="10"/>
         <ProgressRing Name="progressSimulation" IsActive="True" Height="150" Width="150"/>
         <TextBlock Name="txtPercentDone" Text="0%" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{ThemeResource HeaderTextBlockStyle}"/>
-        
 
-        <StackPanel Name="stackReport">
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <TextBlock Text="Progress Report: " Margin="10" Style="{ThemeResource HeaderTextBlockStyle}"/>
-                <TextBlock Name="txtLogFileName" Text="" Margin="10" Style="{ThemeResource HeaderTextBlockStyle}"/>
-            </StackPanel>
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <TextBlock Text="L1 Average Hit Rate: " Margin="10"/>
-                <TextBlock Name="txtAverageHitRate1" Text="" Margin="10"/>
-            </StackPanel>
-            <StackPanel Name="panelL2" HorizontalAlignment="Center" Orientation="Horizontal">
-                <TextBlock Text="L2 Average Hit Rate: " Margin="10"/>
-                <TextBlock Name="txtAverageHitRate2" Text="" Margin="10"/>
-            </StackPanel>
-            <StackPanel Name="panelL3" HorizontalAlignment="Center" Orientation="Horizontal">
-                <TextBlock Text="L3 Average Hit Rate: " Margin="10"/>
-                <TextBlock Name="txtAverageHitRate3" Text="" Margin="10"/>
-            </StackPanel>
-            <charting:SfChart
-                    Visibility="Visible"
-                    x:Name="chartL1HitRate"
-                    Margin="70,0" Palette="Metro">
+        <ScrollViewer>
+            <StackPanel Name="stackReport">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="Progress Report: " Margin="10" Style="{ThemeResource HeaderTextBlockStyle}"/>
+                    <TextBlock Name="txtLogFileName" Text="" Margin="10" Style="{ThemeResource HeaderTextBlockStyle}"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="L1 Average Hit Rate: " Margin="10"/>
+                    <TextBlock Name="txtAverageHitRate1" Text="" Margin="10"/>
+                </StackPanel>
+                <StackPanel Name="panelL2" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="L2 Average Hit Rate: " Margin="10"/>
+                    <TextBlock Name="txtAverageHitRate2" Text="" Margin="10"/>
+                </StackPanel>
+                <StackPanel Name="panelL3" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="L3 Average Hit Rate: " Margin="10"/>
+                    <TextBlock Name="txtAverageHitRate3" Text="" Margin="10"/>
+                </StackPanel>
+                <charting:SfChart
+                        Visibility="Visible"
+                        x:Name="chartL1HitRate"
+                        Margin="70,0" Palette="Metro">
 
-                <charting:SfChart.Legend>
-                    <charting:ChartLegend CheckBoxVisibility="Visible"/>
-                </charting:SfChart.Legend>
-                <charting:SplineSeries Label="L1 Hit Rate" EnableAnimation="True" AnimationDuration="00:00:02"
-                    XBindingPath="PC" ItemsSource="{Binding plotList1}" YBindingPath="Rate" />
-            </charting:SfChart>
-            <charting:SfChart
-                    Visibility="Visible"
-                    x:Name="chartL2HitRate"
-                    Margin="70,0" Palette="Metro">
+                    <charting:SfChart.Legend>
+                        <charting:ChartLegend CheckBoxVisibility="Visible"/>
+                    </charting:SfChart.Legend>
+                    <charting:SplineSeries Label="L1 Hit Rate" EnableAnimation="True" AnimationDuration="00:00:02"
+                        XBindingPath="PC" ItemsSource="{Binding plotList1}" YBindingPath="Rate" />
+                </charting:SfChart>
+                <charting:SfChart
+                        Visibility="Visible"
+                        x:Name="chartL2HitRate"
+                        Margin="70,0" Palette="Metro">
 
-                <charting:SfChart.Legend>
-                    <charting:ChartLegend CheckBoxVisibility="Visible"/>
-                </charting:SfChart.Legend>
-                <charting:SplineSeries Label="L2 Hit Rate" EnableAnimation="True" AnimationDuration="00:00:02"
-                    XBindingPath="PC" ItemsSource="{Binding plotList2}" YBindingPath="Rate" />
-            </charting:SfChart>
-            <charting:SfChart
-                    Visibility="Visible"
-                    x:Name="chartL3HitRate"
-                    Margin="70,0" Palette="Metro">
+                    <charting:SfChart.Legend>
+                        <charting:ChartLegend CheckBoxVisibility="Visible"/>
+                    </charting:SfChart.Legend>
+                    <charting:SplineSeries Label="L2 Hit Rate" EnableAnimation="True" AnimationDuration="00:00:02"
+                        XBindingPath="PC" ItemsSource="{Binding plotList2}" YBindingPath="Rate" />
+                </charting:SfChart>
+                <charting:SfChart
+                        Visibility="Visible"
+                        x:Name="chartL3HitRate"
+                        Margin="70,0" Palette="Metro">
 
-                <charting:SfChart.Legend>
-                    <charting:ChartLegend CheckBoxVisibility="Visible"/>
-                </charting:SfChart.Legend>
-                <charting:SplineSeries Label="L3 Hit Rate" EnableAnimation="True" AnimationDuration="00:00:02"
-                    XBindingPath="PC" ItemsSource="{Binding plotList3}" YBindingPath="Rate" />
-            </charting:SfChart>
-        </StackPanel>
+                    <charting:SfChart.Legend>
+                        <charting:ChartLegend CheckBoxVisibility="Visible"/>
+                    </charting:SfChart.Legend>
+                    <charting:SplineSeries Label="L3 Hit Rate" EnableAnimation="True" AnimationDuration="00:00:02"
+                        XBindingPath="PC" ItemsSource="{Binding plotList3}" YBindingPath="Rate" />
+                </charting:SfChart>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
