@@ -13,7 +13,7 @@ namespace Cachemandu.Models
         private int numBlocks;
         private int numSets;
         private IReplacementPolicy replacementPolicy;
-        HashSet<List<CacheEntry>> entries;
+        private HashSet<List<CacheEntry>> entries;
         private byte offsetSize;
         private byte indexSize;
         private byte tagSize;
@@ -29,9 +29,9 @@ namespace Cachemandu.Models
             this.replacementPolicy = replacementPolicy;
             this.nextLayer = nextLayer;
 
-            entries = mapEntries(wordSize, blockSize, numBlocks, numSets);
+            entries = mapEntries();
             offsetSize = (byte)Math.Round(Math.Log(wordSize, 2));
-            indexSize = (byte)Math.Round(Math.Log(numBlocks, 2));
+            indexSize = (byte)Math.Round(Math.Log(numBlocks / numSets, 2));
             tagSize = (byte)((bit64 ? 64 : 32) - (offsetSize + indexSize));
             count = 0;
         }
@@ -66,7 +66,7 @@ namespace Cachemandu.Models
                 }
 
                 // Replace
-                replace(entries, index, tag, count);
+                replace(addr, count);
             }
 
             // Increment program counter
@@ -75,19 +75,22 @@ namespace Cachemandu.Models
             return foundLayer;
         }
 
-        public void replace(HashSet<List<CacheEntry>> entries, int index, long tag, int count)
+        public void replace(long addr, int count)
         {
+            int index = (int)((addr >> offsetSize) & ((0x01 << indexSize) - 1));
+            long tag = (addr >> (offsetSize + indexSize)) & ((0x01 << tagSize) - 1);
+
             // Replace in this cache
             replacementPolicy.replace(entries, index, tag, count);
 
             // Replace in lower cache (this technically should only be done when something is evicted, but its a simulator so this is easier)
             if (nextLayer != null)
             {
-                nextLayer.replace(entries, index, tag, count);
+                nextLayer.replace(addr, count);
             }
         }
 
-        private HashSet<List<CacheEntry>> mapEntries(int wordSize, int blockSize, int numBlocks, int numSets)
+        private HashSet<List<CacheEntry>> mapEntries()
         {
             HashSet<List<CacheEntry>> ret;
 
@@ -95,7 +98,7 @@ namespace Cachemandu.Models
             for (int i = 0; i < numSets; i++)
             {
                 List<CacheEntry> list = new List<CacheEntry>();
-                for (int j = 0; j < numBlocks; j++)
+                for (int j = 0; j < numBlocks / numSets; j++)
                 {
                     list.Add(new CacheEntry());
                 }
