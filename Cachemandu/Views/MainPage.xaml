@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    NavigationCacheMode="Enabled">
+    NavigationCacheMode="Enabled" Height="786.667">
 
     <ScrollViewer>
         <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -59,7 +59,7 @@
 
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="20"  Text="L1" HorizontalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}"/>
 
-                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="20"  Text="Associativity" />
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="20"  Text="Set Associativity" SelectionChanged="TextBlock_SelectionChanged" />
                     <ComboBox Grid.Column="1" Grid.Row="1" Margin="20"  Name="lstMapSize">
                         <ComboBoxItem IsSelected="True">1</ComboBoxItem>
                         <ComboBoxItem>2</ComboBoxItem>
@@ -91,7 +91,7 @@
                         <ComboBoxItem>64</ComboBoxItem>
                     </ComboBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="20" Text="Block Size" />
+                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="20" Text="Words Per Block" />
                     <ComboBox Grid.Column="1" Grid.Row="4" Margin="20" Name="lstBlockSize">
                         <ComboBoxItem>1</ComboBoxItem>
                         <ComboBoxItem>2</ComboBoxItem>

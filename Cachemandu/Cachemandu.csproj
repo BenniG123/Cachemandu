@@ -96,14 +96,11 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Cache.cs" />
-    <Compile Include="Models\IBusArbitration.cs" />
-    <Compile Include="Models\ICoherenceProtocol.cs" />
     <Compile Include="Models\IReplacementPolicy.cs" />
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\LogParser.cs" />
     <Compile Include="Models\LFUReplacementPolicy.cs" />
     <Compile Include="Models\FIFOReplacementPolicy.cs" />
-    <Compile Include="Models\MemoryAccessHandler.cs" />
     <Compile Include="Models\LRUReplacementPolicy.cs" />
     <Compile Include="Models\RandomReplacementPolicy.cs" />
     <Compile Include="Models\Util.cs" />

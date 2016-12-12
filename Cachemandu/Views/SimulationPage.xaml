@@ -32,7 +32,8 @@
                 <TextBlock Name="txtAverageHitRate3" Text="" Margin="10"/>
             </StackPanel>
             <charting:SfChart
-                    x:Name="chartHitRate"
+                    Visibility="Visible"
+                    x:Name="chartL1HitRate"
                     Margin="70,0" Palette="Metro">
 
                 <charting:SfChart.Legend>
@@ -40,8 +41,26 @@
                 </charting:SfChart.Legend>
                 <charting:SplineSeries Label="L1 Hit Rate" EnableAnimation="True" AnimationDuration="00:00:02"
                     XBindingPath="PC" ItemsSource="{Binding plotList1}" YBindingPath="Rate" />
+            </charting:SfChart>
+            <charting:SfChart
+                    Visibility="Visible"
+                    x:Name="chartL2HitRate"
+                    Margin="70,0" Palette="Metro">
+
+                <charting:SfChart.Legend>
+                    <charting:ChartLegend CheckBoxVisibility="Visible"/>
+                </charting:SfChart.Legend>
                 <charting:SplineSeries Label="L2 Hit Rate" EnableAnimation="True" AnimationDuration="00:00:02"
                     XBindingPath="PC" ItemsSource="{Binding plotList2}" YBindingPath="Rate" />
+            </charting:SfChart>
+            <charting:SfChart
+                    Visibility="Visible"
+                    x:Name="chartL3HitRate"
+                    Margin="70,0" Palette="Metro">
+
+                <charting:SfChart.Legend>
+                    <charting:ChartLegend CheckBoxVisibility="Visible"/>
+                </charting:SfChart.Legend>
                 <charting:SplineSeries Label="L3 Hit Rate" EnableAnimation="True" AnimationDuration="00:00:02"
                     XBindingPath="PC" ItemsSource="{Binding plotList3}" YBindingPath="Rate" />
             </charting:SfChart>

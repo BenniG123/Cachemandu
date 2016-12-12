@@ -181,7 +181,7 @@ namespace Cachemandu.Views
                 else
                 {
                     panelL2.Visibility = Visibility.Collapsed;
-                    chartHitRate.Series[1].IsSeriesVisible = false;
+                    chartL2HitRate.Visibility = Visibility.Collapsed;
                 }
 
                 if (hist.Count > 2)
@@ -203,7 +203,7 @@ namespace Cachemandu.Views
                 else
                 {
                     panelL3.Visibility = Visibility.Collapsed;
-                    chartHitRate.Series[2].IsSeriesVisible = false;
+                    chartL3HitRate.Visibility = Visibility.Collapsed;
                 }
 
                 
@@ -212,8 +212,12 @@ namespace Cachemandu.Views
                 progressSimulation.IsActive = false;
                 txtPercentDone.Visibility = Visibility.Collapsed;
                 imageIcon.Visibility = Visibility.Collapsed;
-                chartHitRate.PrimaryAxis.Header = "Program Counter";
-                chartHitRate.SecondaryAxis.Header = "Hit Rate";
+                chartL1HitRate.PrimaryAxis.Header = "Number of Requests";
+                chartL1HitRate.SecondaryAxis.Header = "Hit Rate";
+                chartL2HitRate.PrimaryAxis.Header = "Number of Requests";
+                chartL2HitRate.SecondaryAxis.Header = "Hit Rate";
+                chartL3HitRate.PrimaryAxis.Header = "Number of Requests";
+                chartL3HitRate.SecondaryAxis.Header = "Hit Rate";
                 stackReport.Visibility = Visibility.Visible;
             }
         }

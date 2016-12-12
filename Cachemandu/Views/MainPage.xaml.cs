@@ -176,5 +176,10 @@ namespace Cachemandu.Views
                 gridL3.Visibility = Visibility.Visible;
             }
         }
+
+        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
